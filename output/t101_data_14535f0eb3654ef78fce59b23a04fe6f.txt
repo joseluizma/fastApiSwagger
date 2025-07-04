@@ -1,0 +1,34 @@
+Schema da tabela usu_0.t101:
+root
+ |-- c1_101: integer (nullable = true)
+ |-- c2_101: string (nullable = true)
+ |-- c3_101: string (nullable = true)
+ |-- c4_101_5002: integer (nullable = true)
+
+
+Dados da tabela usu_0.t101:
++------+-----------------------------------+------+-----------+
+|c1_101|c2_101                             |c3_101|c4_101_5002|
++------+-----------------------------------+------+-----------+
+|1074  |ENTIDADE_FUNÇÃO                    |t1074 |102        |
+|1098  |ENTIDADE_TELA                      |t1098 |102        |
+|9806  |MENU_SEGURANÇA                     |t9806 |102        |
+|9807  |MENU_SEGURANÇA_RELAÇÃO             |t9807 |102        |
+|7406  |CARGO DETALHE                      |t7406 |102        |
+|4008  |DESPESA_IMAGEM                     |t4008 |102        |
+|4101  |PARAMETROS_REGISTRADOS             |t4101 |102        |
+|4102  |PARAMETROS_REGISTRADOS_ENTIDADE    |t4102 |102        |
+|4108  |PARAMETROS_REGISTRADOS_IMAGEM      |t4108 |102        |
+|7701  |DIAS ÚTEIS                         |t7701 |102        |
+|8816  |PROCESSO_MOVIMENTO_LOG             |t8816 |102        |
+|8802  |PROCESSO_MOVIMENTO                 |t8802 |102        |
+|3617  |TOTALIZADOR LOG AGENDAMENTO MAILING|t3617 |102        |
+|3806  |TABULAÇÃO_DETALHE                  |t3806 |102        |
+|7506  |POSTO DE TRABALHO DETALHE          |t7506 |102        |
+|7507  |POSTO DE TRABALHO SETOR            |t7507 |102        |
+|6407  |SETOR FILIAL                       |t6407 |102        |
+|3616  |LOG AGENDAMENTO MAILING            |t3616 |102        |
+|8804  |PROCESSO_AUDIÊNCIA                 |t8804 |102        |
+|1046  |ENTIDADE_CONTATO_DETALHE           |t1046 |102        |
++------+-----------------------------------+------+-----------+
+only showing top 20 rows
