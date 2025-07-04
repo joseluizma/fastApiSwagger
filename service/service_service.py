@@ -133,11 +133,11 @@ class ServiceService:
             .getOrCreate()
 
         # Obter parâmetros de conexão do arquivo .env
-        db_host = '10.185.22.2'
-        db_port = '5432'
-        db_name = 'bd_0'
-        db_user = 'jose_almeida'
-        db_password = '3lpY@<nu'
+        db_host = 
+        db_port = 
+        db_name = 
+        db_user = 
+        db_password = 
 
         # Validar se todas as variáveis foram carregadas
         if not all([db_host, db_port, db_name, db_user, db_password]):
