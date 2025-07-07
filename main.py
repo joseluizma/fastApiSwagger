@@ -4,6 +4,7 @@ from auth.auth_module import AuthModule
 from users.users_module import UsersModule
 from tasks.tasks_module import TasksModule
 from service.service_module import ServiceModule
+import os
 
 app = FastAPI(
     title="Micro-serviço com JWT",
@@ -11,8 +12,12 @@ app = FastAPI(
     version="1.0"
 )
 
+# Criar o diretório de saída se não existir
+output_dir = "output"
+os.makedirs(output_dir, exist_ok=True)
+
 # Montar o diretório de arquivos estáticos
-app.mount("/output", StaticFiles(directory="output"), name="output")
+app.mount("/output", StaticFiles(directory=output_dir), name="output")
 
 # Registrar os módulos
 auth_module = AuthModule(app)

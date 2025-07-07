@@ -8,6 +8,7 @@ import sys
 import time
 import uuid
 import sqlite3
+from database.postgres_connection import PostgresConnection
 
 
 # Configuração do caminho do projeto (se necessário)
@@ -119,47 +120,12 @@ class ServiceService:
         file_name = f"t101_data_{uuid.uuid4().hex}.txt"
         file_path = os.path.join(output_dir, file_name)
 
-     # Tentar localizar o driver JDBC
-        jdbc_driver_path = find_jdbc_driver()
-        if not jdbc_driver_path or not os.path.exists(jdbc_driver_path):
-            raise FileNotFoundError(f"Driver JDBC não encontrado. Tentou procurar em: /home/repository/fastApiSwagger")
-
-        # Configurar a sessão Spark
-        spark = SparkSession.builder \
-            .appName("PostgreSQL") \
-            .config("spark.jars", jdbc_driver_path) \
-            .config("spark.driver.extraClassPath", jdbc_driver_path) \
-            .config("spark.executor.extraClassPath", jdbc_driver_path) \
-            .getOrCreate()
-
-        # Obter parâmetros de conexão do arquivo .env
-        db_host = 
-        db_port = 
-        db_name = 
-        db_user = 
-        db_password = 
-
-        # Validar se todas as variáveis foram carregadas
-        if not all([db_host, db_port, db_name, db_user, db_password]):
-            raise ValueError("Uma ou mais variáveis de ambiente não foram definidas no arquivo .env")
-
-        # Construir a URL JDBC
-        url = f"jdbc:postgresql://{db_host}:{db_port}/{db_name}"
-
-        # Definir as propriedades de conexão
-        properties = {
-            "user": db_user,
-            "password": db_password,
-            "driver": "org.postgresql.Driver"
-        }
-
         try:
-            # Teste a conexão com uma query simples
-            df_test = spark.read.jdbc(url=url, table="(SELECT 1) AS test", properties=properties)
-            print("Conexão com o banco de dados bem-sucedida!")
-            
-            # Carregue os dados da tabela
-            df = spark.read.jdbc(url=url, table="usu_0.t101", properties=properties)
+            # Inicializar a conexão com o PostgreSQL
+            pg_conn = PostgresConnection()
+
+            # Carregar os dados da tabela usu_0.t101
+            df = pg_conn.read_table("usu_0.t101")
             
             # Capturar o schema como string
             old_stdout = sys.stdout
@@ -184,11 +150,12 @@ class ServiceService:
             return {"file_path": file_path, "file_name": file_name, "status": "success"}
 
         except Exception as e:
-            return {"file_path": None, "file_name": None, "status": "error", "error": f"Erro ao conectar ou ler a tabela: {str(e)}"}
+            return {"file_path": None, "file_name": None, "status": "error", "error": f"Erro ao processar a tabela: {str(e)}"}
 
         finally:
-            # Feche a sessão Spark
-            spark.stop()
+            # Fechar a conexão com o PostgreSQL
+            if 'pg_conn' in locals():
+                pg_conn.close()
             
 
 
